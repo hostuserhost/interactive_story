@@ -1,6 +1,6 @@
-import 'package:sizzle_starter/src/feature/app/logic/tracking_manager.dart';
-import 'package:sizzle_starter/src/feature/initialization/logic/composition_root.dart';
-import 'package:sizzle_starter/src/feature/settings/bloc/settings_bloc.dart';
+import 'package:interactive_story/src/feature/app/logic/tracking_manager.dart';
+import 'package:interactive_story/src/feature/initialization/logic/composition_root.dart';
+import 'package:interactive_story/src/feature/settings/bloc/settings_bloc.dart';
 
 /// {@template dependencies_container}
 /// Composed dependencies from the [CompositionRoot].

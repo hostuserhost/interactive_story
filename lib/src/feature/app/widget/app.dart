@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sizzle_starter/src/core/utils/layout/window_size.dart';
-import 'package:sizzle_starter/src/feature/app/widget/material_context.dart';
-import 'package:sizzle_starter/src/feature/initialization/logic/composition_root.dart';
-import 'package:sizzle_starter/src/feature/initialization/widget/dependencies_scope.dart';
-import 'package:sizzle_starter/src/feature/settings/widget/settings_scope.dart';
+import 'package:interactive_story/src/core/utils/layout/window_size.dart';
+import 'package:interactive_story/src/feature/app/widget/material_context.dart';
+import 'package:interactive_story/src/feature/initialization/logic/composition_root.dart';
+import 'package:interactive_story/src/feature/initialization/widget/dependencies_scope.dart';
+import 'package:interactive_story/src/feature/settings/widget/settings_scope.dart';
 
 /// {@template app}
 /// [App] is an entry point to the application.

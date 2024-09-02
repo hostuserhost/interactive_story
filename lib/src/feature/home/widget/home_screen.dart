@@ -1,6 +1,7 @@
+import 'package:camera_macos/camera_macos.dart';
 import 'package:flutter/material.dart';
-import 'package:sizzle_starter/src/core/utils/layout/layout.dart';
-import 'package:sizzle_starter/src/feature/settings/widget/settings_scope.dart';
+import 'package:interactive_story/src/core/utils/layout/layout.dart';
+import 'package:interactive_story/src/feature/settings/widget/settings_scope.dart';
 
 /// {@template home_screen}
 /// HomeScreen is a simple screen that displays a grid of items.
@@ -14,16 +15,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late CameraMacOSController macOSController;
+  final GlobalKey cameraKey = GlobalKey();
+  late List<CameraMacOSDevice> videoDevices;
   @override
   void initState() {
     SettingsScope.of(context, listen: false).setLocale(const Locale('ru'));
+    getCameraDevices();
     super.initState();
+  }
+
+  void getCameraDevices() async {
+    List<CameraMacOSDevice> videoDevices =
+        await CameraMacOS.instance.listDevices(
+      deviceType: CameraMacOSDeviceType.video,
+    );
+    setState(() {
+      this.videoDevices = videoDevices;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final windowSize = WindowSizeScope.of(context);
-
     return Scaffold(
       appBar: AppBar(title: const Text('Home Screen')),
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -45,33 +59,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          SliverPadding(
-            padding: HorizontalSpacing.centered(windowSize.width, 1600),
-            sliver: SliverGrid.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                crossAxisCount: windowSize.maybeMap(
-                  medium: () => 2,
-                  expanded: () => 3,
-                  large: () => 4,
-                  extraLarge: () => 5,
-                  orElse: () => 1,
-                ),
-              ),
-              itemBuilder: (context, index) => ColoredBox(
-                color: Theme.of(context).colorScheme.primary,
-                child: Center(
-                  child: Text(
-                    'Item $index',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                  ),
-                ),
-              ),
+          SliverToBoxAdapter(
+            child: CameraMacOSView(
+              deviceId: videoDevices[1].deviceId,
+              key: cameraKey,
+              fit: BoxFit.fill,
+              cameraMode: CameraMacOSMode.photo,
+              onCameraInizialized: (CameraMacOSController controller) {
+                setState(() {
+                  this.macOSController = controller;
+                });
+              },
             ),
-          ),
+          )
         ],
       ),
     );

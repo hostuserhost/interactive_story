@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sizzle_starter/src/core/utils/persisted_entry.dart';
+import 'package:interactive_story/src/core/utils/persisted_entry.dart';
 
 /// {@template locale_datasource}
 /// [LocaleDataSource] is an entry point to the locale data layer.
